@@ -1,11 +1,27 @@
 import { sql } from "drizzle-orm"
-import { pgTable, primaryKey, text, timestamp } from "drizzle-orm/pg-core"
+import {
+  integer,
+  pgTable,
+  primaryKey,
+  serial,
+  text,
+  timestamp,
+} from "drizzle-orm/pg-core"
+
+export const foodTable = pgTable("food", {
+  id: serial(),
+  name: text(),
+  calories: integer(),
+  protein: integer(),
+  carbs: integer(),
+  fat: integer(),
+})
 
 export const userTable = pgTable("user", {
-  id: text("id")
+  id: text()
     .primaryKey()
     .default(sql`gen_random_uuid()`),
-  email: text("email").notNull().unique(),
+  email: text().unique(),
 })
 
 export const sessionTable = pgTable("session", {
@@ -13,15 +29,15 @@ export const sessionTable = pgTable("session", {
   userId: text("user_id")
     .notNull()
     .references(() => userTable.id, { onDelete: "cascade" }),
-  expires: timestamp("expires").notNull(),
+  expires: timestamp().notNull(),
 })
 
-export const verificationTable = pgTable(
-  "verification",
+export const verificationTokenTable = pgTable(
+  "verification_token",
   {
-    identifier: text("identifier").notNull(),
-    token: text("token").notNull(),
-    expires: timestamp("expires").notNull(),
+    identifier: text().notNull(),
+    token: text().notNull(),
+    expires: timestamp().notNull(),
   },
   (table) => [primaryKey({ columns: [table.identifier, table.token] })],
 )

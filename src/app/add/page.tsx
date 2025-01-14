@@ -4,35 +4,28 @@ import { BrowserMultiFormatReader } from "@zxing/browser"
 import { useEffect, useState } from "react"
 
 export default function Add() {
+  const [auto, setAuto] = useState(true)
   const [code, setCode] = useState("")
-  const [log, setLog] = useState(false)
 
   useEffect(() => {
     const video = document.querySelector("video")!
+    const reader = new BrowserMultiFormatReader()
 
-    navigator.mediaDevices.getUserMedia({ video: true }).then((stream) => {
-      video.srcObject = stream
-    })
+    navigator.mediaDevices
+      .getUserMedia({ video: true })
+      .then((stream) => (video.srcObject = stream))
+      .catch(() => setAuto(false))
 
-    new BrowserMultiFormatReader().decodeFromVideoElement(video, (result) => {
+    reader.decodeFromVideoElement(video, (result) => {
       if (result) {
         setCode(result.getText())
-        setLog(true)
       }
     })
   }, [])
 
   return (
     <>
-      <h1>Add</h1>
-
-      {log ? (
-        <>
-          <p>X</p>
-        </>
-      ) : (
-        <video autoPlay />
-      )}
+      <video />
     </>
   )
 }
