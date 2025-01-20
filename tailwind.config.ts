@@ -5,10 +5,10 @@ const config: Config = {
   theme: {
     extend: {
       colors: {
-        foreground: "#080404",
-        background: "#faf3f4",
-        primary: "#b1535d",
-        secondary: "#b5c176",
+        foreground: "#050705",
+        background: "#fcfdfc",
+        primary: "#719778",
+        secondary: "#c4afb8",
       },
     },
   },

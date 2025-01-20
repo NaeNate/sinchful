@@ -1,4 +1,4 @@
-import Pending from "@/components/pending"
+import Pending from "@/components/Pending"
 import { signIn } from "@/lib/auth"
 
 export default function SignIn() {
@@ -12,7 +12,7 @@ export default function SignIn() {
           await signIn("nodemailer", fd)
         }}
       >
-        <input name="email" />
+        <input name="email" className="input" />
         <Pending />
       </form>
     </>

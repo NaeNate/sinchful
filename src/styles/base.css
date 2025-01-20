@@ -7,3 +7,13 @@
     @apply bg-background text-foreground;
   }
 }
+
+@layer components {
+  .input {
+    @apply bg-background p-2 rounded border-primary border;
+  }
+
+  .button {
+    @apply bg-primary text-background p-2 rounded;
+  }
+}
